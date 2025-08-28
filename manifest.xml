@@ -8,6 +8,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Secure Email Project Manager"/>
   <Description DefaultValue="Password-protected email metadata management"/>
+  <IconUrl DefaultValue="https://img.icons8.com/fluency/32/000000/email.png"/>
+  <HighResolutionIconUrl DefaultValue="https://img.icons8.com/fluency/64/000000/email.png"/>
   
   <Hosts>
     <Host Name="Mailbox"/>
