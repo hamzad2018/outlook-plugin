@@ -2,14 +2,14 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
            xsi:type="MailApp">
-  <Id>12345678-1234-1234-1234-123456789012</Id>
-  <Version>2.0.0.0</Version>
-  <ProviderName>Your Company</ProviderName>
+  <Id>a7b8c9d0-e1f2-3456-7890-123456789abc</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>FJA Engineering</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Secure Email Project Manager"/>
   <Description DefaultValue="Password-protected email metadata management"/>
-  <IconUrl DefaultValue="https://static.office.net/outlook/icons/app-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://static.office.net/outlook/icons/app-64.png"/>
+  <IconUrl DefaultValue="https://img.icons8.com/fluency/32/000000/email.png"/>
+  <HighResolutionIconUrl DefaultValue="https://img.icons8.com/fluency/64/000000/email.png"/>
   
   <Hosts>
     <Host Name="Mailbox"/>
