@@ -2,32 +2,33 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:type="MailApp">
-
-  <!-- Identity & metadata -->
   <Id>f8c2b5d9-4d19-4a6c-9f2f-34e5b7ac1c1f</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>FJA Engineering</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Secure Email Project Manager"/>
-  <Description DefaultValue="Password-protected email metadata management"/>
-
-  <!-- REQUIRED icons: host these two PNGs in your repo (create /icons/icon-32.png and /icons/icon-64.png) -->
+  <Description DefaultValue="Password-protected email metadata management for Outlook."/>
   <IconUrl DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-64.png"/>
+  <SupportUrl DefaultValue="https://hamzad2018.github.io/outlook-plugin/"/>
 
-  <!-- Host app -->
+  <!-- Domains the add-in may load content from -->
+  <AppDomains>
+    <AppDomain>hamzad2018.github.io</AppDomain>
+  </AppDomains>
+
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
 
-  <!-- API requirement set -->
+  <!-- Requirement set: 1.5 is broadly accepted by newer tenants -->
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.1"/>
+      <Set Name="Mailbox" MinVersion="1.5"/>
     </Sets>
   </Requirements>
 
-  <!-- Task pane locations: BOTH forms must be inside ONE FormSettings block -->
+  <!-- BOTH forms inside ONE FormSettings block -->
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
@@ -43,13 +44,13 @@
     </Form>
   </FormSettings>
 
-  <!-- Permissions -->
   <Permissions>ReadWriteMailbox</Permissions>
 
-  <!-- Activation rules -->
+  <!-- Activate on reading or editing mail items -->
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
     <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
   </Rule>
 
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
 </OfficeApp>
