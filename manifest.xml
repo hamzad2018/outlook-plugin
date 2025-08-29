@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:type="MailApp">
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+  xsi:type="MailApp">
+
+  <!-- Identity -->
   <Id>f8c2b5d9-4d19-4a6c-9f2f-34e5b7ac1c1f</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>FJA Engineering</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Secure Email Project Manager"/>
@@ -12,11 +17,15 @@
   <HighResolutionIconUrl DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-64.png"/>
   <SupportUrl DefaultValue="https://hamzad2018.github.io/outlook-plugin/"/>
 
+  <!-- Where the add-in is allowed to load content from -->
   <AppDomains>
     <AppDomain>hamzad2018.github.io</AppDomain>
   </AppDomains>
 
-  <Hosts><Host Name="Mailbox"/></Hosts>
+  <!-- Host & base API requirement -->
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
 
   <Requirements>
     <Sets>
@@ -24,6 +33,7 @@
     </Sets>
   </Requirements>
 
+  <!-- Keep the original task-pane entry point for ItemRead -->
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
@@ -33,10 +43,74 @@
     </Form>
   </FormSettings>
 
-  <!-- Use the lowest privilege to remove any permission-related policy blocks -->
+  <!-- Safe minimum permission -->
   <Permissions>ReadItem</Permissions>
 
-  <Rule xsi:type="RuleCollection" Mode="Or">
-    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
-  </Rule>
+  <!-- ********  Commands (Ribbon)  ******** -->
+  <VersionOverrides xsi:type="VersionOverridesV1_1">
+    <!-- Commands need Mailbox >= 1.3 -->
+    <Requirements>
+      <Sets DefaultMinVersion="1.3">
+        <Set Name="Mailbox"/>
+      </Sets>
+    </Requirements>
+
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <ov:DesktopFormFactor>
+
+          <!-- (Optional) Function file; not required for ShowTaskpane but valid -->
+          <ov:FunctionFile resid="resid.FunctionFile.Url"/>
+
+          <!-- Message Read surface -->
+          <ov:ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <ov:OfficeTab id="TabDefault">
+              <ov:Group id="grp.FJA.Tools" label="FJA Tools" icon="resid.Icon32">
+                <ov:Control xsi:type="Button" id="btn.OpenPane">
+                  <ov:Label resid="resid.Btn.Label"/>
+                  <ov:Supertip>
+                    <ov:Title resid="resid.Btn.Label"/>
+                    <ov:Description resid="resid.Btn.Desc"/>
+                  </ov:Supertip>
+                  <ov:Icon>
+                    <ov:bt:Image size="16" resid="resid.Icon16"/>
+                    <ov:bt:Image size="32" resid="resid.Icon32"/>
+                    <ov:bt:Image size="80" resid="resid.Icon80"/>
+                  </ov:Icon>
+                  <ov:Action xsi:type="ShowTaskpane">
+                    <ov:SourceLocation resid="resid.TaskPane.Url"/>
+                    <!-- You can add <ov:SupportsPinning>true</ov:SupportsPinning> if you later raise the requirement set -->
+                  </ov:Action>
+                </ov:Control>
+              </ov:Group>
+            </ov:OfficeTab>
+          </ov:ExtensionPoint>
+
+        </ov:DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <!-- Resources used above -->
+    <Resources>
+      <bt:Images>
+        <!-- NOTE: provide these exact sizes in /icons -->
+        <bt:Image id="resid.Icon16" DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-16.png"/>
+        <bt:Image id="resid.Icon32" DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-32.png"/>
+        <bt:Image id="resid.Icon80" DefaultValue="https://hamzad2018.github.io/outlook-plugin/icons/icon-80.png"/>
+      </bt:Images>
+
+      <bt:Urls>
+        <bt:Url id="resid.TaskPane.Url" DefaultValue="https://hamzad2018.github.io/outlook-plugin/enhanced-plugin.html"/>
+        <bt:Url id="resid.FunctionFile.Url" DefaultValue="https://hamzad2018.github.io/outlook-plugin/enhanced-plugin.html"/>
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="resid.Btn.Label" DefaultValue="Open Project Pane"/>
+      </bt:ShortStrings>
+
+      <bt:LongStrings>
+        <bt:String id="resid.Btn.Desc" DefaultValue="Open the Secure Email Project Manager task pane to extract and manage metadata for the current message."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
 </OfficeApp>
